@@ -13,6 +13,9 @@
 #include <mutex>
 #include <map>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 static const char* vertex_shader_code =
 "#version 330\n"
 "layout(location = 0) in vec3 pos;\n"
@@ -21,7 +24,7 @@ static const char* vertex_shader_code =
 "out vec2 texcoord;\n"
 "void main() {\n"
 "    texcoord = tex;\n"
-"    gl_Position = matrix * vec4(pos,1.0);\n"
+"    gl_Position = matrix * vec4(pos, 1.0);\n"
 "}\n";
 
 static const char* fragment_shader_code =
@@ -171,12 +174,6 @@ unsigned image_impl::size() const { return (unsigned)mPBOsize; }
 
 void image_impl::render(const void* pWnd, int pX, int pY, int pViewPortWidth, int pViewPortHeight)
 {
-    static const float matrix[16] = {
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f};
-
     glUseProgram(mProgram);
     // get uniform locations
     int mat_loc = glGetUniformLocation(mProgram, "matrix");
@@ -197,7 +194,7 @@ void image_impl::render(const void* pWnd, int pX, int pY, int pViewPortWidth, in
                     mGLformat, mDataType, 0);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
-    glUniformMatrix4fv(mat_loc, 1, GL_FALSE, matrix);
+    glUniformMatrix4fv(mat_loc, 1, GL_FALSE, glm::value_ptr(mMVP));
 
     glUniform1f(cml_loc, (GLfloat)mUBOSize);
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, mColorMapUBO);

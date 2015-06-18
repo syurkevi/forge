@@ -117,7 +117,7 @@ void plot_impl::render(const void* pWnd, int pX, int pY, int pVPW, int pVPH)
     glEnable(GL_SCISSOR_TEST);
 
     bindBorderProgram();
-    glm::mat4 transform = glm::scale(glm::mat4(1.0f), glm::vec3(graph_scale_x, graph_scale_y, 1));
+    glm::mat4 transform = mMVP * glm::scale(glm::mat4(1.0f), glm::vec3(graph_scale_x, graph_scale_y, 1));
     glUniformMatrix4fv(borderMatIndex(), 1, GL_FALSE, glm::value_ptr(transform));
     glUniform4fv(borderColorIndex(), 1, mLineColor);
 

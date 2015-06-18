@@ -222,6 +222,7 @@ void window_impl::draw(const std::shared_ptr<AbstractRenderable>& pRenderable)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(GRAY[0], GRAY[1], GRAY[2], GRAY[3]);
 
+    pRenderable->setMVP(mWindow->getMVP());
     pRenderable->setColorMapUBOParams(mColorMapUBO, mUBOSize);
     pRenderable->render(this, 0, 0, wind_width, wind_height);
 
@@ -271,6 +272,7 @@ void window_impl::draw(int pColId, int pRowId,
     glEnable(GL_SCISSOR_TEST);
     glClearColor(GRAY[0], GRAY[1], GRAY[2], GRAY[3]);
 
+    pRenderable->setMVP(mWindow->getMVP());
     pRenderable->setColorMapUBOParams(mColorMapUBO, mUBOSize);
     pRenderable->render(this, x_off, y_off, mCellWidth, mCellHeight);
 

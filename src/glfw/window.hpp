@@ -24,6 +24,8 @@
 #include <GLFW/glfw3native.h>
 #endif
 
+#include <glm/glm.hpp>
+
 /* the short form wtk stands for
  * Windowing Tool Kit */
 namespace wtk
@@ -34,6 +36,11 @@ class Widget {
         GLFWwindow* mWindow;
 
         Widget();
+
+        double        mLastXpos;
+        double        mLastYpos;
+        int           mButton;
+        glm::mat4     mMVP;
 
     public:
         Widget(int pWidth, int pHeight, const char* pTitle, const Widget* pWindow, const bool invisible);
@@ -63,6 +70,12 @@ class Widget {
         bool close();
 
         void keyboardHandler(int pKey, int pScancode, int pAction, int pMods);
+
+        void cursorHandler(double pXpos, double pYpos);
+
+        void buttonHandler(int pButton, int pAction, int pMods);
+
+        glm::mat4 getMVP() { return mMVP; }
 
         void pollEvents();
 };

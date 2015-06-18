@@ -14,6 +14,8 @@
 #include <err_common.hpp>
 #include <vector>
 
+#include <glm/glm.hpp>
+
 static const float GRAY[]  = {0.0f   , 0.0f   , 0.0f   , 1.0f};
 static const float WHITE[] = {1.0f   , 1.0f   , 1.0f   , 1.0f};
 static const float BLUE[]  = {0.0588f, 0.1137f, 0.2745f, 1.0f};
@@ -29,6 +31,12 @@ namespace internal
  */
 class AbstractRenderable {
     public:
+        glm::mat4 mMVP;
+        void setMVP(glm::mat4 pMVP)
+        {
+            mMVP = pMVP;
+        }
+
         /* render is a pure virtual function.
          * @pX X coordinate at which the currently bound viewport begins.
          * @pX Y coordinate at which the currently bound viewport begins.

@@ -11,6 +11,8 @@
 
 #include <SDL.h>
 
+#include <glm/glm.hpp>
+
 /* the short form wtk stands for
  * Windowing Tool Kit */
 namespace wtk
@@ -23,6 +25,12 @@ class Widget {
         bool            mClose;
 
         Widget();
+
+        double        mLastXpos;
+        double        mLastYpos;
+        int           mButton;
+        int           mMod;
+        glm::mat4     mMVP;
 
     public:
         Widget(int pWidth, int pHeight, const char* pTitle, const Widget* pWindow, const bool invisible);
@@ -54,6 +62,8 @@ class Widget {
         void show();
 
         bool close();
+
+        glm::mat4 getMVP() { return mMVP; }
 
         void pollEvents();
 
