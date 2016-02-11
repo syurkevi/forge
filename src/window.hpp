@@ -24,6 +24,7 @@
 #include <plot3.hpp>
 #include <surface.hpp>
 #include <histogram.hpp>
+#include <vector_field.hpp>
 
 #include <memory>
 
@@ -182,6 +183,10 @@ class _Window {
 
         inline void draw(const _Histogram* pHist) {
             wnd->draw(pHist->impl()) ;
+        }
+
+        inline void draw(const _VectorField* pVecField) {
+            wnd->draw(pVecField->impl()) ;
         }
 
         inline void swapBuffers() {

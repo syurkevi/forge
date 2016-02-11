@@ -16,6 +16,7 @@
 #include <fg/plot3.h>
 #include <fg/surface.h>
 #include <fg/histogram.h>
+#include <fg/vector_field.h>
 
 namespace internal
 {
@@ -197,6 +198,7 @@ class Window {
            a plot
          */
         FGAPI void draw(const Surface& pSurface);
+
         /**
            Render Histogram to Window
 
@@ -207,6 +209,17 @@ class Window {
            a histogram
          */
         FGAPI void draw(const Histogram& pHist);
+
+        /**
+           Render Vector Field to Window
+
+           \param[in] pVectorField is an object of class VectorField
+
+           \note this draw call does a OpenGL swap buffer, so we do not need
+           to call Window::draw() after this function is called upon for rendering
+           a vector field
+         */
+        FGAPI void draw(const VectorField& pVecField);
 
         /**
            Setup grid layout for multivew mode
@@ -316,6 +329,25 @@ class Window {
            when in multiview mode.
          */
         FGAPI void draw(int pColId, int pRowId, const Histogram& pHist, const char* pTitle = 0);
+
+        /**
+           Render VectorField to given sub-region of the window in multiview mode
+
+           Window::grid should have been already called before any of the draw calls
+           that accept coloum index and row index is used to render an object.
+
+           \param[in] pColId is coloumn index
+           \param[in] pRowId is row index
+           \param[in] pVecField is an object of class VectorField
+           \param[in] pTitle is the title that will be displayed for the cell represented
+                      by \p pColId and \p pRowId
+
+           \note This draw call doesn't do OpenGL swap buffer since it doesn't have the
+           knowledge of which sub-regions already got rendered. We should call
+           Window::draw() once all draw calls corresponding to all sub-regions are called
+           when in multiview mode.
+         */
+        FGAPI void draw(int pColId, int pRowId, const VectorField& pVecField, const char* pTitle = 0);
 
         /**
            Swaps background OpenGL buffer with front buffer

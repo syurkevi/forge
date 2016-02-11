@@ -19,3 +19,4 @@
 #include "fg/plot3.h"
 #include "fg/surface.h"
 #include "fg/histogram.h"
+#include "fg/vector_field.h"

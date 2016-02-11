@@ -434,6 +434,11 @@ void Window::draw(const Histogram& pHist)
     value->draw(pHist.get());
 }
 
+void Window::draw(const VectorField& pVecField)
+{
+    value->draw(pVecField.get());
+}
+
 void Window::grid(int pRows, int pCols)
 {
     value->grid(pRows, pCols);
@@ -463,6 +468,11 @@ void Window::draw(int pColId, int pRowId, const Surface& pSurface, const char* p
 void Window::draw(int pColId, int pRowId, const Histogram& pHist, const char* pTitle)
 {
     value->draw(pColId, pRowId, pHist.get(), pTitle);
+}
+
+void Window::draw(int pColId, int pRowId, const VectorField& pVecField, const char* pTitle)
+{
+    value->draw(pColId, pRowId, pVecField.get(), pTitle);
 }
 
 void Window::swapBuffers()
