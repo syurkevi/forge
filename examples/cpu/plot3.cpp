@@ -28,7 +28,9 @@ using namespace std;
 void gen_curve(float t, float dx, std::vector<float> &vec )
 {
     vec.clear();
-    for(float z=ZMIN; z < ZMAX; z+=dx){
+    float z = ZMIN;
+    for(unsigned i=0; i<ZSIZE; i++) {
+        z+=DX;
         vec.push_back(cos(z*t+t)/z);
         vec.push_back(sin(z*t+t)/z);
         vec.push_back(z+0.1*sin(t));
